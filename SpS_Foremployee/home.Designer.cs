@@ -33,12 +33,17 @@
             comboBox1 = new ComboBox();
             groupBox1 = new GroupBox();
             panel1 = new Panel();
+            pictureBox4 = new PictureBox();
+            pictureBox3 = new PictureBox();
             groupBox2 = new GroupBox();
             panel2 = new Panel();
+            pictureBox6 = new PictureBox();
+            pictureBox5 = new PictureBox();
             textBox1 = new TextBox();
             tb_datetime = new TextBox();
             tb_username = new TextBox();
             panel3 = new Panel();
+            button2 = new Button();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
@@ -52,22 +57,18 @@
             tb_carplateout = new TextBox();
             tb_usernameout = new TextBox();
             tb_timeout = new TextBox();
-            pictureBox3 = new PictureBox();
-            pictureBox4 = new PictureBox();
-            pictureBox5 = new PictureBox();
-            pictureBox6 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             groupBox2.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -119,6 +120,26 @@
             panel1.Size = new Size(786, 926);
             panel1.TabIndex = 0;
             // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = SystemColors.ButtonHighlight;
+            pictureBox4.BorderStyle = BorderStyle.Fixed3D;
+            pictureBox4.Location = new Point(400, 79);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(326, 430);
+            pictureBox4.TabIndex = 1;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor = SystemColors.ButtonHighlight;
+            pictureBox3.BorderStyle = BorderStyle.Fixed3D;
+            pictureBox3.Location = new Point(45, 79);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(326, 430);
+            pictureBox3.TabIndex = 0;
+            pictureBox3.TabStop = false;
+            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(panel2);
@@ -139,6 +160,26 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(786, 926);
             panel2.TabIndex = 1;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = SystemColors.ButtonHighlight;
+            pictureBox6.BorderStyle = BorderStyle.Fixed3D;
+            pictureBox6.Location = new Point(404, 79);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(326, 430);
+            pictureBox6.TabIndex = 2;
+            pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor = SystemColors.ButtonHighlight;
+            pictureBox5.BorderStyle = BorderStyle.Fixed3D;
+            pictureBox5.Location = new Point(51, 79);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(326, 430);
+            pictureBox5.TabIndex = 1;
+            pictureBox5.TabStop = false;
             // 
             // textBox1
             // 
@@ -167,6 +208,7 @@
             // panel3
             // 
             panel3.BackColor = SystemColors.InactiveCaption;
+            panel3.Controls.Add(button2);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(label2);
             panel3.Controls.Add(label1);
@@ -177,6 +219,16 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(523, 427);
             panel3.TabIndex = 11;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(29, 363);
+            button2.Name = "button2";
+            button2.Size = new Size(112, 34);
+            button2.TabIndex = 13;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // label3
             // 
@@ -303,46 +355,6 @@
             tb_timeout.Size = new Size(371, 50);
             tb_timeout.TabIndex = 8;
             // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = SystemColors.ButtonHighlight;
-            pictureBox3.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox3.Location = new Point(45, 79);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(326, 430);
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor = SystemColors.ButtonHighlight;
-            pictureBox4.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox4.Location = new Point(400, 79);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(326, 430);
-            pictureBox4.TabIndex = 1;
-            pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.BackColor = SystemColors.ButtonHighlight;
-            pictureBox5.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox5.Location = new Point(51, 79);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(326, 430);
-            pictureBox5.TabIndex = 1;
-            pictureBox5.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.BackColor = SystemColors.ButtonHighlight;
-            pictureBox6.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox6.Location = new Point(404, 79);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(326, 430);
-            pictureBox6.TabIndex = 2;
-            pictureBox6.TabStop = false;
-            // 
             // home
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -364,17 +376,17 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox1.ResumeLayout(false);
             panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             groupBox2.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
         }
 
