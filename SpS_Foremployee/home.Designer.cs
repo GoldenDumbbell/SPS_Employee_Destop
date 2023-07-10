@@ -37,13 +37,15 @@
             pictureBox3 = new PictureBox();
             groupBox2 = new GroupBox();
             panel2 = new Panel();
-            pictureBox6 = new PictureBox();
+            button2 = new Button();
+            comboBox2 = new ComboBox();
+            tb_readcarplate = new TextBox();
+            pbcamerafontin = new PictureBox();
             pictureBox5 = new PictureBox();
             textBox1 = new TextBox();
             tb_datetime = new TextBox();
             tb_username = new TextBox();
             panel3 = new Panel();
-            button2 = new Button();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
@@ -57,6 +59,8 @@
             tb_carplateout = new TextBox();
             tb_usernameout = new TextBox();
             tb_timeout = new TextBox();
+            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
+            pbreadcarplate = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
@@ -64,11 +68,12 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             groupBox2.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbcamerafontin).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbreadcarplate).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -154,22 +159,52 @@
             // panel2
             // 
             panel2.BackColor = SystemColors.InactiveCaption;
-            panel2.Controls.Add(pictureBox6);
+            panel2.Controls.Add(pbreadcarplate);
+            panel2.Controls.Add(button2);
+            panel2.Controls.Add(comboBox2);
+            panel2.Controls.Add(tb_readcarplate);
+            panel2.Controls.Add(pbcamerafontin);
             panel2.Controls.Add(pictureBox5);
             panel2.Location = new Point(20, 39);
             panel2.Name = "panel2";
             panel2.Size = new Size(786, 926);
             panel2.TabIndex = 1;
             // 
-            // pictureBox6
+            // button2
             // 
-            pictureBox6.BackColor = SystemColors.ButtonHighlight;
-            pictureBox6.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox6.Location = new Point(404, 79);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(326, 430);
-            pictureBox6.TabIndex = 2;
-            pictureBox6.TabStop = false;
+            button2.Location = new Point(618, 746);
+            button2.Name = "button2";
+            button2.Size = new Size(112, 34);
+            button2.TabIndex = 13;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(207, 27);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(523, 46);
+            comboBox2.TabIndex = 5;
+            // 
+            // tb_readcarplate
+            // 
+            tb_readcarplate.Location = new Point(416, 625);
+            tb_readcarplate.Name = "tb_readcarplate";
+            tb_readcarplate.Size = new Size(314, 45);
+            tb_readcarplate.TabIndex = 3;
+            // 
+            // pbcamerafontin
+            // 
+            pbcamerafontin.BackColor = SystemColors.ButtonHighlight;
+            pbcamerafontin.BorderStyle = BorderStyle.Fixed3D;
+            pbcamerafontin.Location = new Point(404, 79);
+            pbcamerafontin.Name = "pbcamerafontin";
+            pbcamerafontin.Size = new Size(326, 430);
+            pbcamerafontin.TabIndex = 2;
+            pbcamerafontin.TabStop = false;
+            pbcamerafontin.Click += pbcamerafontin_Click;
             // 
             // pictureBox5
             // 
@@ -208,7 +243,6 @@
             // panel3
             // 
             panel3.BackColor = SystemColors.InactiveCaption;
-            panel3.Controls.Add(button2);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(label2);
             panel3.Controls.Add(label1);
@@ -219,16 +253,6 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(523, 427);
             panel3.TabIndex = 11;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(29, 363);
-            button2.Name = "button2";
-            button2.Size = new Size(112, 34);
-            button2.TabIndex = 13;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
             // 
             // label3
             // 
@@ -355,6 +379,21 @@
             tb_timeout.Size = new Size(371, 50);
             tb_timeout.TabIndex = 8;
             // 
+            // sqlCommand1
+            // 
+            sqlCommand1.CommandTimeout = 30;
+            sqlCommand1.EnableOptimizedParameterBinding = false;
+            // 
+            // pbreadcarplate
+            // 
+            pbreadcarplate.BackColor = SystemColors.ButtonHighlight;
+            pbreadcarplate.BorderStyle = BorderStyle.Fixed3D;
+            pbreadcarplate.Location = new Point(39, 730);
+            pbreadcarplate.Name = "pbreadcarplate";
+            pbreadcarplate.Size = new Size(484, 111);
+            pbreadcarplate.TabIndex = 14;
+            pbreadcarplate.TabStop = false;
+            // 
             // home
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -380,13 +419,15 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             groupBox2.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbcamerafontin).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbreadcarplate).EndInit();
             ResumeLayout(false);
         }
 
@@ -419,7 +460,11 @@
         private TextBox tb_timeout;
         private PictureBox pictureBox4;
         private PictureBox pictureBox3;
-        private PictureBox pictureBox6;
+        private PictureBox pbcamerafontin;
         private PictureBox pictureBox5;
+        private TextBox tb_readcarplate;
+        private ComboBox comboBox2;
+        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
+        private PictureBox pbreadcarplate;
     }
 }
