@@ -20,8 +20,11 @@ using System.Runtime.InteropServices;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Util;
 using System;
-
-
+using System.IO.Ports;
+using Emgu.CV.Stitching;
+using System.Collections;
+using System.ComponentModel;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SpS_Foremployee
 {
@@ -48,6 +51,7 @@ namespace SpS_Foremployee
         public home()
         {
             InitializeComponent();
+            Control.CheckForIllegalCrossThreadCalls = false;
             cameras = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo info in cameras)
             {
@@ -55,37 +59,53 @@ namespace SpS_Foremployee
                 comboBox3.Items.Add(info.Name);
 
             }
-          
+
             comboBox1.SelectedIndex = 0;
             comboBox3.SelectedIndex = 1;
-            _capture = new VideoCapture();
-           
+            _capture = new VideoCapture(2);
+
+            if (!serCOM.IsOpen)
+            {
+                txt_note.Text = "ACTIVE";
+                serCOM.PortName = "COM3";
+                serCOM.BaudRate = Convert.ToInt32("9600");
+                serCOM.Open();
+            }
+            else
+            {
+                txt_note.Text = "Kết nối";
+                serCOM.Close();
+            }
+
+            conn.Open();
         }
         SqlConnection conn = new SqlConnection(@"Server=tcp:smartpackingsystem.database.windows.net,1433;Initial Catalog=SPSDB;Persist Security Info=False;User ID=adminsps;Password=Sps@12345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
 
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-        }
         private void Form1_Load(object sender, EventArgs e)
         {
+            /* StartCapture();*/
 
-         
-/*           StartCapture();*/
+            /* string query = "SELECT carPlate, time_In, time_Out, username FROM tb_History"; // Thay "YourTable" bằng tên bảng trong cơ sở dữ liệu của bạn
+             SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+             DataTable dataTable = new DataTable();
+             adapter.Fill(dataTable);
+             Gv_history.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+             Gv_history.DataSource = dataTable;*/
 
         }
 
-        private void StartCapture()
+        /*private void StartCapture()
         {
             // Đặt kích thước picture box hiển thị camera
-            /*   pbcamerafontin.Width = 326;
-               pbcamerafontin.Height = 430;*/
+            *//*   pbcamerafontin.Width = 326;
+               pbcamerafontin.Height = 430;*//*
 
             // Bắt đầu quét từ camera
-            
+
             Application.Idle += ProcessFrame;
-            
-          
+
+
         }
 
         private void StopCapture()
@@ -130,7 +150,7 @@ namespace SpS_Foremployee
                 pbreadcarplate.Image = null;
                 tb_readcarplate.Text = "";
             }
-            
+
         }
 
         private string ProcessLicensePlateImage(Bitmap licensePlateImage)
@@ -154,15 +174,15 @@ namespace SpS_Foremployee
                 // Lấy kết quả nhận dạng
                 string licensePlateNumber = engine.GetUTF8Text();
 
-            
-         
+
+
 
                 return licensePlateNumber;
             }
         }
 
 
- 
+
         private void BitmapToMat(Bitmap bitmap, Mat mat)
         {
             BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, bitmap.PixelFormat);
@@ -186,31 +206,31 @@ namespace SpS_Foremployee
 
 
         private Rectangle FindLicensePlateRegion(Mat frame)
-         {
-             // Chuyển đổi khung hình sang ảnh xám để dễ dàng xử lý
-             Mat grayImage = new Mat();
-             CvInvoke.CvtColor(frame, grayImage, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
+        {
+            // Chuyển đổi khung hình sang ảnh xám để dễ dàng xử lý
+            Mat grayImage = new Mat();
+            CvInvoke.CvtColor(frame, grayImage, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
 
-             // Áp dụng bộ lọc và xử lý hình ảnh để tăng cường chất lượng và độ tương phản
-             CvInvoke.GaussianBlur(grayImage, grayImage, new Size(5, 5), 0);
-             CvInvoke.EqualizeHist(grayImage, grayImage);
+            // Áp dụng bộ lọc và xử lý hình ảnh để tăng cường chất lượng và độ tương phản
+            CvInvoke.GaussianBlur(grayImage, grayImage, new Size(5, 5), 0);
+            CvInvoke.EqualizeHist(grayImage, grayImage);
 
-             // Áp dụng thuật toán phát hiện biên (Canny) để tìm biên của các vật thể trong ảnh
-             double cannyThreshold = CvInvoke.Threshold(grayImage, grayImage, 0, 255, Emgu.CV.CvEnum.ThresholdType.Otsu);
-             CvInvoke.Canny(grayImage, grayImage, cannyThreshold * 0.5, cannyThreshold);
+            // Áp dụng thuật toán phát hiện biên (Canny) để tìm biên của các vật thể trong ảnh
+            double cannyThreshold = CvInvoke.Threshold(grayImage, grayImage, 0, 255, Emgu.CV.CvEnum.ThresholdType.Otsu);
+            CvInvoke.Canny(grayImage, grayImage, cannyThreshold * 0.5, cannyThreshold);
 
-             // Áp dụng phép giãn ảnh để làm rõ các đặc trưng của biển số xe
-             CvInvoke.Dilate(grayImage, grayImage, null, new Point(-1, -1), 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1));
+            // Áp dụng phép giãn ảnh để làm rõ các đặc trưng của biển số xe
+            CvInvoke.Dilate(grayImage, grayImage, null, new Point(-1, -1), 1, Emgu.CV.CvEnum.BorderType.Default, new MCvScalar(1));
 
-             // Tìm các đường viền trong ảnh
-             VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
-             CvInvoke.FindContours(grayImage, contours, null, Emgu.CV.CvEnum.RetrType.List, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+            // Tìm các đường viền trong ảnh
+            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+            CvInvoke.FindContours(grayImage, contours, null, Emgu.CV.CvEnum.RetrType.List, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
 
-             // Duyệt qua tất cả các đường viền và tìm vùng có hình dạng và kích thước tương thích với biển số xe
-             for (int i = 0; i < contours.Size; i++)
-             {
-                 using (VectorOfPoint contour = contours[i])
-                 {
+            // Duyệt qua tất cả các đường viền và tìm vùng có hình dạng và kích thước tương thích với biển số xe
+            for (int i = 0; i < contours.Size; i++)
+            {
+                using (VectorOfPoint contour = contours[i])
+                {
                     Rectangle boundingRect = CvInvoke.BoundingRectangle(contour);
                     double aspectRatio = (double)boundingRect.Width / boundingRect.Height;
                     double area = CvInvoke.ContourArea(contour);
@@ -223,39 +243,11 @@ namespace SpS_Foremployee
                         return boundingRect;
                     }
                 }
-             }
+            }
 
-             // Trả về Rectangle.Empty nếu không tìm thấy vùng chứa biển số xe
-             return Rectangle.Empty;
-         }
-
-      
-
-
-
-
-
-
-
-        private Bitmap ConvertMatToBitmap(Mat mat)
-        {
-            // Lấy thông tin kích thước và dữ liệu từ Mat
-            int width = mat.Width;
-            int height = mat.Height;
-            byte[] data = new byte[width * height * mat.NumberOfChannels];
-            Marshal.Copy(mat.DataPointer, data, 0, data.Length);
-
-            // Tạo Bitmap mới từ dữ liệu
-            PixelFormat pixelFormat = mat.NumberOfChannels == 1 ? PixelFormat.Format8bppIndexed : PixelFormat.Format24bppRgb;
-            Bitmap bitmap = new Bitmap(width, height, pixelFormat);
-            BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, pixelFormat);
-            Marshal.Copy(data, 0, bitmapData.Scan0, data.Length);
-            bitmap.UnlockBits(bitmapData);
-
-            return bitmap;
-        }
-
-       
+            // Trả về Rectangle.Empty nếu không tìm thấy vùng chứa biển số xe
+            return Rectangle.Empty;
+        }*/
 
 
 
@@ -264,6 +256,35 @@ namespace SpS_Foremployee
 
 
 
+
+        /*    private Bitmap ConvertMatToBitmap(Mat mat)
+            {
+                // Lấy thông tin kích thước và dữ liệu từ Mat
+                int width = mat.Width;
+                int height = mat.Height;
+                byte[] data = new byte[width * height * mat.NumberOfChannels];
+                Marshal.Copy(mat.DataPointer, data, 0, data.Length);
+
+                // Tạo Bitmap mới từ dữ liệu
+                PixelFormat pixelFormat = mat.NumberOfChannels == 1 ? PixelFormat.Format8bppIndexed : PixelFormat.Format24bppRgb;
+                Bitmap bitmap = new Bitmap(width, height, pixelFormat);
+                BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, pixelFormat);
+                Marshal.Copy(data, 0, bitmapData.Scan0, data.Length);
+                bitmap.UnlockBits(bitmapData);
+
+                return bitmap;
+            }*/
+
+
+
+
+
+
+
+
+        //
+        // Scan QR code In
+        //
         private void button1_Click(object sender, EventArgs e)
         {
             if (cam != null && cam.IsRunning)
@@ -282,6 +303,7 @@ namespace SpS_Foremployee
 
             if (result != null)
             {
+                serCOM.Close();
                 string json = result.Text;
                 ProcessJsonData(json);
                 /*                Invoke((MethodInvoker)(() => textBox1.Text = result.Text));
@@ -313,34 +335,40 @@ namespace SpS_Foremployee
                         command.Parameters.AddWithValue("@carPlate", textBox1.Text);
                         command.Parameters.AddWithValue("@carid", idCar);
                         command.Parameters.AddWithValue("@Username", tb_username.Text);
+
                         command.ExecuteNonQuery();
-                        conn.Close();
+                        /*conn.Close();*/
                     }
                     String querrycar = "UPDATE tb_Car SET historyID=@historyID WHERE carPlate = @carplate";
                     using (SqlCommand cm = new SqlCommand(querrycar, conn))
                     {
                         cm.Parameters.AddWithValue("@historyID", newid);
                         cm.Parameters.AddWithValue("@carplate", textBox1.Text);
-                        conn.Open();
+                        /*conn.Open();*/
                         cm.ExecuteNonQuery();
-                        conn.Close();
+                        /*conn.Close();*/
                     }
                     String querrycarcode = "UPDATE tb_Car SET securityCode=@securitycode WHERE carPlate = @carplate";
                     using (SqlCommand cm = new SqlCommand(querrycarcode, conn))
                     {
                         cm.Parameters.AddWithValue("@securitycode", "");
                         cm.Parameters.AddWithValue("@carplate", textBox1.Text);
-                        conn.Open();
+                        /*conn.Open();*/
                         cm.ExecuteNonQuery();
-                        conn.Close();
+                        /*conn.Close();*/
                     }
 
-                    MessageBox.Show("Success welcome to parking ", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
-
+                    /*                    MessageBox.Show("Success welcome to parking ", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    */
+                    serCOM.Open();
+                    conn.Close();
+                    serCOM.WriteLine("val1=-90");
+                    conn.Open();
                 }
                 else
                 {
                     MessageBox.Show("Please generate a new QRCode and try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
 
                 }
             }
@@ -405,6 +433,9 @@ namespace SpS_Foremployee
             catch (Exception ex) { }
         }
 
+        //
+        // Scan QR code out
+        //
         private void btcamout_Click(object sender, EventArgs e)
         {
 
@@ -425,6 +456,7 @@ namespace SpS_Foremployee
 
             if (result != null)
             {
+                serCOM.Close();
                 string json = result.Text;
                 ProcessJsonDataout(json);
 
@@ -446,9 +478,29 @@ namespace SpS_Foremployee
                     {
                         cm.Parameters.AddWithValue("@securitycode", "");
                         cm.Parameters.AddWithValue("@carplate", tb_carplateout.Text);
-                        conn.Open();
+                        /* conn.Open();*/
                         cm.ExecuteNonQuery();
-                        conn.Close();
+                        /*conn.Close();*/
+                    }
+                    String owned = "False";
+                    String check = "SELECT * FROM tb_Spot WHERE carID = '" + tb_carplateout.Text + "' AND owned = '" + owned + "'";
+                    SqlDataAdapter sda1 = new SqlDataAdapter(check, conn);
+                    DataTable dtable1 = new DataTable();
+                    sda1.Fill(dtable1);
+                    if (dtable1.Rows.Count > 0)
+                    {
+
+                        String querryspot = "UPDATE tb_Spot SET carID=@CarId WHERE carID = @Carplate";
+                        using (SqlCommand cm = new SqlCommand(querryspot, conn))
+                        {
+                            cm.Parameters.AddWithValue("@CarId", "");
+                            cm.Parameters.AddWithValue("@Carplate", tb_carplateout.Text);
+                            /*conn.Open();*/
+                            cm.ExecuteNonQuery();
+                            /*conn.Close();*/
+                        }
+
+
                     }
                     GetouthisID(tb_carplateout.Text);
                     String updatehis = "UPDATE tb_History SET time_Out=@timeout WHERE historyID = @HistoryID";
@@ -458,20 +510,24 @@ namespace SpS_Foremployee
                         cm.Parameters.AddWithValue("@HistoryID", idhis);
 
                         cm.ExecuteNonQuery();
-                        conn.Close();
+                        /*conn.Close();*/
                     }
+
                     String querrycar = "UPDATE tb_Car SET historyID=@historyID WHERE carPlate = @carplate";
                     using (SqlCommand cm = new SqlCommand(querrycar, conn))
                     {
                         cm.Parameters.AddWithValue("@historyID", "");
                         cm.Parameters.AddWithValue("@carplate", tb_carplateout.Text);
-                        conn.Open();
+                        /*conn.Open();*/
                         cm.ExecuteNonQuery();
-                        conn.Close();
+                        /* conn.Close();*/
                     }
-                    MessageBox.Show("Thank you and see you again", "Sussecc", MessageBoxButtons.OK, MessageBoxIcon.None);
-
-
+                    /*                    MessageBox.Show("Thank you and see you again", "Sussecc", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    */
+                    serCOM.Open();
+                    conn.Close();
+                    serCOM.WriteLine("val2=-90");
+                    conn.Open();
                 }
                 else
                 {
@@ -510,7 +566,7 @@ namespace SpS_Foremployee
             String querrygetid = "SELECT historyID FROM tb_History";
             using (SqlCommand command = new SqlCommand(querrygetid, conn))
             {
-                conn.Open();
+                /*conn.Open();*/
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -540,7 +596,7 @@ namespace SpS_Foremployee
             using (SqlCommand command = new SqlCommand(querrygetid, conn))
             {
                 command.Parameters.AddWithValue("@carplate", Carplate);
-                conn.Open();
+                /*conn.Open();*/
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -573,6 +629,61 @@ namespace SpS_Foremployee
         }
 
         private void pbcamerafontin_Click(object sender, EventArgs e)
+        {
+
+        }
+        // Xử Lý IOT
+
+        private void serCOM_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+
+            String alldata = "";
+
+            alldata = serCOM.ReadLine();
+
+            char[] charArray = alldata.ToCharArray();
+
+
+            char[] spot = new char[charArray.Length];
+
+
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                spot[i] = charArray[i];
+
+                int v = i + 1;
+                /*tb_carplateout.Text = spot[i].ToString();*/
+                if (spot[i].ToString().Equals("0"))
+                {
+
+                    String updatespot = "UPDATE tb_Spot SET available=@avai WHERE sensorID = @ID";
+                    using (SqlCommand cm = new SqlCommand(updatespot, conn))
+                    {
+                        cm.Parameters.AddWithValue("@avai", "True");
+                        cm.Parameters.AddWithValue("@ID", v.ToString());
+                        /* conn.Open();*/
+                        cm.ExecuteNonQuery();
+                        /*conn.Close();*/
+                    }
+                }
+                else if (spot[i].ToString().Equals("1"))
+                {
+                    String updatespot = "UPDATE tb_Spot SET available=@avai WHERE sensorID = @ID";
+                    using (SqlCommand cm = new SqlCommand(updatespot, conn))
+                    {
+                        cm.Parameters.AddWithValue("@avai", "False");
+                        cm.Parameters.AddWithValue("@ID", v.ToString());
+                        /*conn.Open();*/
+                        cm.ExecuteNonQuery();
+                        /*conn.Close();*/
+                    }
+
+                }
+
+            }
+        }
+
+        private void txt_note_Click(object sender, EventArgs e)
         {
 
         }

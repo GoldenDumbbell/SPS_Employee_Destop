@@ -47,6 +47,7 @@ namespace SpS_Foremployee
                     home.Show();
                     this.Hide();
 
+
                 }
                 else
                 {
@@ -59,7 +60,7 @@ namespace SpS_Foremployee
             }
             catch
             {
-                MessageBox.Show("Invalid login");
+                MessageBox.Show("can't connect database");
             }
             finally
             {
