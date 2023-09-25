@@ -29,24 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Text.ASCIIEncoding asciiEncodingSealed2 = new System.Text.ASCIIEncoding();
-            System.Text.DecoderReplacementFallback decoderReplacementFallback2 = new System.Text.DecoderReplacementFallback();
-            System.Text.EncoderReplacementFallback encoderReplacementFallback2 = new System.Text.EncoderReplacementFallback();
+            System.Text.ASCIIEncoding asciiEncodingSealed1 = new System.Text.ASCIIEncoding();
+            System.Text.DecoderReplacementFallback decoderReplacementFallback1 = new System.Text.DecoderReplacementFallback();
+            System.Text.EncoderReplacementFallback encoderReplacementFallback1 = new System.Text.EncoderReplacementFallback();
             pictureBox1 = new PictureBox();
             button1 = new Button();
             comboBox1 = new ComboBox();
-            groupBox1 = new GroupBox();
-            panel1 = new Panel();
-            pictureBox4 = new PictureBox();
-            pictureBox3 = new PictureBox();
-            groupBox2 = new GroupBox();
-            panel2 = new Panel();
-            label7 = new Label();
-            pbreadcarplate = new PictureBox();
-            comboBox2 = new ComboBox();
-            tb_readcarplate = new TextBox();
-            pbcamerafontin = new PictureBox();
-            pictureBox5 = new PictureBox();
             textBox1 = new TextBox();
             tb_datetime = new TextBox();
             tb_username = new TextBox();
@@ -68,30 +56,17 @@
             serCOM = new System.IO.Ports.SerialPort(components);
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
             Gv_history = new DataGridView();
-            pictureBox6 = new PictureBox();
-            textBox2 = new TextBox();
-            label8 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            groupBox1.SuspendLayout();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            groupBox2.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbreadcarplate).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pbcamerafontin).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Gv_history).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
             pictureBox1.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox1.Location = new Point(2337, 80);
+            pictureBox1.Location = new Point(1654, 117);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(523, 434);
             pictureBox1.TabIndex = 0;
@@ -99,7 +74,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(2337, 528);
+            button1.Location = new Point(1654, 565);
             button1.Name = "button1";
             button1.Size = new Size(523, 33);
             button1.TabIndex = 1;
@@ -110,136 +85,10 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(2337, 42);
+            comboBox1.Location = new Point(1654, 79);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(523, 33);
             comboBox1.TabIndex = 4;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(panel1);
-            groupBox1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox1.Location = new Point(616, 42);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(829, 983);
-            groupBox1.TabIndex = 5;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Car Out";
-            groupBox1.Enter += groupBox1_Enter;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = SystemColors.InactiveCaption;
-            panel1.Controls.Add(label8);
-            panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(pictureBox6);
-            panel1.Controls.Add(pictureBox4);
-            panel1.Controls.Add(pictureBox3);
-            panel1.Location = new Point(19, 38);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(786, 927);
-            panel1.TabIndex = 0;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor = SystemColors.ButtonHighlight;
-            pictureBox4.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox4.Location = new Point(400, 78);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(325, 431);
-            pictureBox4.TabIndex = 1;
-            pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = SystemColors.ButtonHighlight;
-            pictureBox3.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox3.Location = new Point(46, 78);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(325, 431);
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(panel2);
-            groupBox2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox2.Location = new Point(1467, 42);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(829, 983);
-            groupBox2.TabIndex = 6;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Car In";
-            // 
-            // panel2
-            // 
-            panel2.BackColor = SystemColors.InactiveCaption;
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(pbreadcarplate);
-            panel2.Controls.Add(comboBox2);
-            panel2.Controls.Add(tb_readcarplate);
-            panel2.Controls.Add(pbcamerafontin);
-            panel2.Controls.Add(pictureBox5);
-            panel2.Location = new Point(20, 38);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(786, 927);
-            panel2.TabIndex = 1;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(51, 681);
-            label7.Name = "label7";
-            label7.Size = new Size(127, 38);
-            label7.TabIndex = 15;
-            label7.Text = "Car Plate";
-            // 
-            // pbreadcarplate
-            // 
-            pbreadcarplate.BackColor = SystemColors.ButtonHighlight;
-            pbreadcarplate.BorderStyle = BorderStyle.Fixed3D;
-            pbreadcarplate.Location = new Point(51, 531);
-            pbreadcarplate.Name = "pbreadcarplate";
-            pbreadcarplate.Size = new Size(484, 111);
-            pbreadcarplate.TabIndex = 14;
-            pbreadcarplate.TabStop = false;
-            // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(207, 27);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(523, 46);
-            comboBox2.TabIndex = 5;
-            // 
-            // tb_readcarplate
-            // 
-            tb_readcarplate.Location = new Point(221, 674);
-            tb_readcarplate.Name = "tb_readcarplate";
-            tb_readcarplate.Size = new Size(314, 45);
-            tb_readcarplate.TabIndex = 3;
-            // 
-            // pbcamerafontin
-            // 
-            pbcamerafontin.BackColor = SystemColors.ButtonHighlight;
-            pbcamerafontin.BorderStyle = BorderStyle.Fixed3D;
-            pbcamerafontin.Location = new Point(404, 78);
-            pbcamerafontin.Name = "pbcamerafontin";
-            pbcamerafontin.Size = new Size(325, 431);
-            pbcamerafontin.TabIndex = 2;
-            pbcamerafontin.TabStop = false;
-            pbcamerafontin.Click += pbcamerafontin_Click;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.BackColor = SystemColors.ButtonHighlight;
-            pictureBox5.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox5.Location = new Point(51, 78);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(325, 431);
-            pictureBox5.TabIndex = 1;
-            pictureBox5.TabStop = false;
             // 
             // textBox1
             // 
@@ -274,7 +123,7 @@
             panel3.Controls.Add(textBox1);
             panel3.Controls.Add(tb_username);
             panel3.Controls.Add(tb_datetime);
-            panel3.Location = new Point(2337, 578);
+            panel3.Location = new Point(1654, 615);
             panel3.Name = "panel3";
             panel3.Size = new Size(523, 427);
             panel3.TabIndex = 11;
@@ -312,7 +161,7 @@
             // comboBox3
             // 
             comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(11, 42);
+            comboBox3.Location = new Point(677, 66);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(523, 33);
             comboBox3.TabIndex = 13;
@@ -320,7 +169,7 @@
             // pictureBox2
             // 
             pictureBox2.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox2.Location = new Point(11, 93);
+            pictureBox2.Location = new Point(677, 117);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(523, 434);
             pictureBox2.TabIndex = 14;
@@ -328,7 +177,7 @@
             // 
             // btcamout
             // 
-            btcamout.Location = new Point(11, 533);
+            btcamout.Location = new Point(677, 557);
             btcamout.Name = "btcamout";
             btcamout.Size = new Size(523, 33);
             btcamout.TabIndex = 15;
@@ -345,7 +194,7 @@
             panel4.Controls.Add(tb_carplateout);
             panel4.Controls.Add(tb_usernameout);
             panel4.Controls.Add(tb_timeout);
-            panel4.Location = new Point(11, 578);
+            panel4.Location = new Point(677, 602);
             panel4.Name = "panel4";
             panel4.Size = new Size(523, 427);
             panel4.TabIndex = 16;
@@ -418,7 +267,26 @@
             // 
             // serCOM
             // 
-            this.serCOM.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serCOM_DataReceived);
+            serCOM.BaudRate = 9600;
+            serCOM.DataBits = 8;
+            serCOM.DiscardNull = false;
+            serCOM.DtrEnable = false;
+            asciiEncodingSealed1.DecoderFallback = decoderReplacementFallback1;
+            asciiEncodingSealed1.EncoderFallback = encoderReplacementFallback1;
+            serCOM.Encoding = asciiEncodingSealed1;
+            serCOM.Handshake = System.IO.Ports.Handshake.None;
+            serCOM.NewLine = "\n";
+            serCOM.Parity = System.IO.Ports.Parity.None;
+            serCOM.ParityReplace = 63;
+            serCOM.PortName = "COM1";
+            serCOM.ReadBufferSize = 4096;
+            serCOM.ReadTimeout = -1;
+            serCOM.ReceivedBytesThreshold = 1;
+            serCOM.RtsEnable = false;
+            serCOM.StopBits = System.IO.Ports.StopBits.One;
+            serCOM.WriteBufferSize = 2048;
+            serCOM.WriteTimeout = -1;
+            serCOM.DataReceived += serCOM_DataReceived;
             // 
             // sqlCommand1
             // 
@@ -428,39 +296,12 @@
             // Gv_history
             // 
             Gv_history.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Gv_history.Location = new Point(14, 1148);
+            Gv_history.Location = new Point(677, 1148);
             Gv_history.Name = "Gv_history";
             Gv_history.RowHeadersWidth = 62;
             Gv_history.RowTemplate.Height = 33;
-            Gv_history.Size = new Size(2843, 411);
+            Gv_history.Size = new Size(1500, 411);
             Gv_history.TabIndex = 18;
-            // 
-            // pictureBox6/*/*/*/*/*/*/**/*/*/*/*/*/*/
-            // 
-            pictureBox6.BackColor = SystemColors.ButtonHighlight;
-            pictureBox6.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox6.Location = new Point(241, 531);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(484, 111);
-            pictureBox6.TabIndex = 15;
-            pictureBox6.TabStop = false;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(411, 674);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(314, 45);
-            textBox2.TabIndex = 16;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(241, 677);
-            label8.Name = "label8";
-            label8.Size = new Size(127, 38);
-            label8.TabIndex = 17;
-            label8.Text = "Car Plate";
             // 
             // home
             // 
@@ -474,8 +315,6 @@
             Controls.Add(pictureBox2);
             Controls.Add(comboBox3);
             Controls.Add(panel3);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
             Controls.Add(comboBox1);
             Controls.Add(button1);
             Controls.Add(pictureBox1);
@@ -483,24 +322,12 @@
             Text = "Form1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            groupBox1.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            groupBox2.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pbreadcarplate).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pbcamerafontin).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Gv_history).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -510,10 +337,6 @@
         private PictureBox pictureBox1;
         private Button button1;
         private ComboBox comboBox1;
-        private GroupBox groupBox1;
-        private Panel panel1;
-        private GroupBox groupBox2;
-        private Panel panel2;
         private TextBox textBox1;
         private TextBox tb_datetime;
         private TextBox tb_username;
@@ -531,20 +354,9 @@
         private TextBox tb_carplateout;
         private TextBox tb_usernameout;
         private TextBox tb_timeout;
-        private PictureBox pictureBox4;
-        private PictureBox pictureBox3;
-        private PictureBox pbcamerafontin;
-        private PictureBox pictureBox5;
-        private TextBox tb_readcarplate;
-        private ComboBox comboBox2;
-        private PictureBox pbreadcarplate;
         private Label txt_note;
         private System.IO.Ports.SerialPort serCOM;
         private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
-        private Label label7;
         private DataGridView Gv_history;
-        private Label label8;
-        private TextBox textBox2;
-        private PictureBox pictureBox6;
     }
 }
